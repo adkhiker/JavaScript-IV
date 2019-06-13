@@ -14,14 +14,18 @@ Prototype Refactor
   * destroy() // prototype method -> returns the string 'Object was removed from the game.'
 */
 
-const GameObject = function(object) {
-  this.createdAt = object.createdAt;
-  this.dimensions = object.dimensions;
+class GameObject {
+    constructor(options){
+        this.createdAt = options.createdAt;
+        this.dimensions = options.dimensions;
+        this.name = options.name;
+    }
+    destroy() {
+        return `${this.name} was removed from the game.`;
+    }
 };
-
-GameObject.prototype.destroy = function() {
-  return this.name + " was removed from the game.";
-};
+  
+  
 
 /*
   === CharacterStats ===
@@ -31,16 +35,16 @@ GameObject.prototype.destroy = function() {
   * should inherit destroy() from GameObject's prototype
 */
 
-const CharacterStats = function(character) {
-  GameObject.call(this, character);
-  this.hp = character.hp;
-  this.name = character.name;
+class CharacterStats extends GameObject {
+    constructor(characterStatsOptions) {
+        super(characterStatsOptions);
+        this.healthPoints = characterStatsOptions.healthPoints;
+    }
+    takeDamage() {
+        return `${this.name} took damage.`;
+    }
 };
-
-CharacterStats.prototype = Object.create(GameObject.prototype);
-CharacterStats.prototype.takeDamage = function() {
-  return this.name + " took damage.";
-};
+  
 
 /*
   === Humanoid ===
@@ -52,17 +56,17 @@ CharacterStats.prototype.takeDamage = function() {
   * should inherit takeDamage() from CharacterStats
 */
 
-const Humanoid = function(properties) {
-  CharacterStats.call(this, properties);
-  this.faction = properties.faction;
-  this.weapons = properties.weapons;
-  this.language = properties.language;
+class Humanoid extends CharacterStats {
+    constructor(humanoidOptions) {
+        super(humanoidOptions);
+        this.weapons = humanoidOptions.weapons;
+        this.language = humanoidOptions.language;
+    }
+    greet() {
+        return `${this.name} offers a greeting in ${this.language}.`;
+    }
 };
 
-Humanoid.prototype = Object.create(CharacterStats.prototype);
-Humanoid.prototype.greet = function() {
-  return this.name + " offers a greeting in " + this.language + ".";
-};
 
 /*
  * Inheritance chain: Humanoid -> CharacterStats -> GameObject
@@ -125,3 +129,7 @@ console.log(archer.greet()); // Lilith offers a greeting in Elvish.
 console.log(mage.takeDamage()); // Bruce took damage.
 console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
 
+// Stretch task:
+// * Create Villian and Hero classes that inherit from the Humanoid class.
+// * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
+// * Create two new objects, one a villian and one a hero and fight it out with methods!
