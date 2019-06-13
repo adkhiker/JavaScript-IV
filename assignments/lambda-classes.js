@@ -77,6 +77,7 @@ const isaiah = new Student({
   className: "Web21",
   favSubjects: ["Html", "CSS", "JavaScript"]
 });
+
 const kevin = new Student({
   name: "Kevin",
   age: 28,
@@ -85,6 +86,7 @@ const kevin = new Student({
   className: "WEB21",
   favSubjects: ["Html", "CSS", "JavaScript"]
 });
+
 const nisa = new Student({
   name: "Nisa",
   age: 25,
@@ -168,6 +170,7 @@ const darren = new ProjectManager({
   favLanguage: "Javascript",
   catchPhrase: "Gang. Gang."
 });
+
 const Austin = new ProjectManager({
   name: "Austin",
   age: "23",
@@ -180,8 +183,8 @@ const Austin = new ProjectManager({
 });
 
 //Testing
-console.log(`\nAge: ${pat.age}`);
+/* console.log(`\nAge: ${pat.age}`);
 
 console.log("\n ", pat);
 
-console.log(dan.speak());
+console.log(dan.speak()); */
